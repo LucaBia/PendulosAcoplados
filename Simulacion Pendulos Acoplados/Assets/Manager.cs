@@ -24,6 +24,9 @@ public class Manager : MonoBehaviour {
 	private int velocidadInicial;
 	private Vector3 oscilarX = new Vector3 (0f, 0f, 1f);
 	private Vector3 oscilarZ = new Vector3 (1f, 0f, 0f);
+	public Camera camara1;
+	public Camera camara2;
+	public Camera camara3;
 
     // Start is called before the first frame update
     void Start() {
@@ -42,6 +45,10 @@ public class Manager : MonoBehaviour {
 		cuerpo1.mass = masa1;
 		cuerpo2.mass = masa2;
 		resorte.spring = fuerzaResorte;
+
+		if (Input.GetKeyDown(KeyCode.C)) {
+            cambiarCamara();
+        }
     }
 
 	public void startSimulation() {
@@ -68,22 +75,6 @@ public class Manager : MonoBehaviour {
 	}
 
 	public void cambiarOscilacion() {
-		// Le quito la velocidad
-		// cuerpo1.velocity = new Vector3 (0f, 0f, 0f);
-		// cuerpo2.velocity = new Vector3 (0f, 0f, 0f);
-		// cuerda1.velocity = new Vector3 (0f, 0f, 0f);
-		// cuerda2.velocity = new Vector3 (0f, 0f, 0f);
-		// cuerpo1.angularVelocity = new Vector3 (0f, 0f, 0f);
-		// cuerpo2.angularVelocity = new Vector3 (0f, 0f, 0f);
-		// cuerda1.angularVelocity = new Vector3 (0f, 0f, 0f);
-		// cuerda2.angularVelocity = new Vector3 (0f, 0f, 0f);
-
-		// Posicion inicial de las masas y pendulos
-		// cuerpo1.transform.position = new Vector3 (-1.5f, 0.5f, 0f);
-		// cuerpo2.transform.position = new Vector3 (1.5f, 0.5f, 0f);
-		// cuerda1.transform.position = new Vector3 (-1.5f, 1.5f, 0f);
-		// cuerda2.transform.position = new Vector3 (1.5f, 1.5f, 0f);
-
 		bool continuar = false;
 		Vector3 cero = Vector3.zero;
 		while (!continuar) {
@@ -124,6 +115,25 @@ public class Manager : MonoBehaviour {
 		} else {
 			pendulo2.axis = oscilarZ;
 			pendulo1.axis = oscilarZ;
+		}
+	}
+
+	public void cambiarCamara() {
+		if (camara1.enabled) {
+			camara1.enabled = false;
+			// camara1.SetActive(false);
+			camara2.enabled = true;
+			// camara2.SetActive(true);
+		} else if (camara2.enabled) {
+			camara2.enabled = false;
+			// camara2.SetActive(false);
+			camara3.enabled = true;
+			// camara3.SetActive(true);
+		} else {
+			camara3.enabled = false;
+			// camara3.SetActive(false);
+			camara1.enabled = true;
+			// camara1.SetActive(true);
 		}
 	}
 
