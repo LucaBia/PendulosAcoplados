@@ -11,6 +11,8 @@ public class Manager : MonoBehaviour {
 	public InputField inputVel;
 	public Rigidbody cuerpo1;
 	public Rigidbody cuerpo2;
+	public Rigidbody cuerda1;
+	public Rigidbody cuerda2;
 	public SpringJoint resorte;
 	public HingeJoint pendulo1;
 	public HingeJoint pendulo2;
@@ -67,13 +69,54 @@ public class Manager : MonoBehaviour {
 
 	public void cambiarOscilacion() {
 		// Le quito la velocidad
-		cuerpo1.velocity = new Vector3 (0f, 0f, 0f);
-		cuerpo2.velocity = new Vector3 (0f, 0f, 0f);
+		// cuerpo1.velocity = new Vector3 (0f, 0f, 0f);
+		// cuerpo2.velocity = new Vector3 (0f, 0f, 0f);
+		// cuerda1.velocity = new Vector3 (0f, 0f, 0f);
+		// cuerda2.velocity = new Vector3 (0f, 0f, 0f);
+		// cuerpo1.angularVelocity = new Vector3 (0f, 0f, 0f);
+		// cuerpo2.angularVelocity = new Vector3 (0f, 0f, 0f);
+		// cuerda1.angularVelocity = new Vector3 (0f, 0f, 0f);
+		// cuerda2.angularVelocity = new Vector3 (0f, 0f, 0f);
+
 		// Posicion inicial de las masas y pendulos
-		cuerpo1.transform.position = new Vector3 (0f, 0.5f, 0f);
-		cuerpo2.transform.position = new Vector3 (0f, 0.5f, 0f);
-		pendulo1.transform.position = new Vector3 (0f, 1.5f, 0f);
-		pendulo2.transform.position = new Vector3 (0f, 1.5f, 0f);
+		// cuerpo1.transform.position = new Vector3 (-1.5f, 0.5f, 0f);
+		// cuerpo2.transform.position = new Vector3 (1.5f, 0.5f, 0f);
+		// cuerda1.transform.position = new Vector3 (-1.5f, 1.5f, 0f);
+		// cuerda2.transform.position = new Vector3 (1.5f, 1.5f, 0f);
+
+		bool continuar = false;
+		Vector3 cero = Vector3.zero;
+		while (!continuar) {
+			cuerpo1.velocity = Vector3.zero;
+			cuerpo2.velocity = Vector3.zero;
+			cuerda1.velocity = Vector3.zero;
+			cuerda2.velocity = Vector3.zero;
+			cuerpo1.angularVelocity = Vector3.zero;
+			cuerpo2.angularVelocity = Vector3.zero;
+			cuerda1.angularVelocity = Vector3.zero;
+			cuerda2.angularVelocity = Vector3.zero;
+
+			cuerpo1.Sleep();
+			cuerpo2.Sleep();
+			cuerda1.Sleep();
+			cuerda2.Sleep();
+
+			// Posicion inicial de las masas y pendulos
+			cuerpo1.transform.position = new Vector3 (-1.5f, 0.5f, 0f);
+			cuerpo2.transform.position = new Vector3 (1.5f, 0.5f, 0f);
+			cuerda1.transform.position = new Vector3 (-1.5f, 1.5f, 0f);
+			cuerda2.transform.position = new Vector3 (1.5f, 1.5f, 0f);
+
+			pendulo1.connectedAnchor = new Vector3(-1.5f, 2.5f, 0f);
+			pendulo2.connectedAnchor = new Vector3(1.5f, 2.5f, 0f);
+
+			if (cuerpo1.velocity == cero && cuerpo2.velocity == cero) {
+				continuar = true;
+			}
+
+		}
+
+		Debug.Log("@HOLA");
 		// Cambio de direccion de oscilacion
 		if (pendulo1.axis == oscilarZ) {
 			pendulo1.axis = oscilarX;
